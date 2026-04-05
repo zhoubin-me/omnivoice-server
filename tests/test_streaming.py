@@ -4,6 +4,7 @@ Tests for streaming synthesis endpoint.
 The streaming test was previously buried in test_voices.py — moved here where
 it belongs, with additional edge-case coverage.
 """
+
 from __future__ import annotations
 
 
@@ -59,6 +60,7 @@ def test_streaming_multi_sentence(client):
 def test_streaming_with_clone_voice(client, sample_audio_bytes):
     """Streaming should work with clone: prefix too."""
     import io
+
     # Create profile first
     client.post(
         "/v1/voices/profiles",

@@ -7,6 +7,7 @@ Profile structure on disk:
       ref_audio.wav     <- reference audio
       meta.json         <- {"name": str, "ref_text": str|null, "created_at": str}
 """
+
 from __future__ import annotations
 
 import json
@@ -69,8 +70,7 @@ class ProfileService:
         profile_path = self._profile_path(profile_id)
         if profile_path.exists() and not overwrite:
             raise ProfileAlreadyExistsError(
-                f"Profile '{profile_id}' already exists. "
-                "Use overwrite=true to replace."
+                f"Profile '{profile_id}' already exists. Use overwrite=true to replace."
             )
 
         profile_path.mkdir(parents=True, exist_ok=True)

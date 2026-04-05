@@ -2,6 +2,7 @@
 Server configuration.
 Priority: CLI flags > env vars > defaults.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -97,6 +98,7 @@ class Settings(BaseSettings):
             return v
         try:
             import torch
+
             if torch.cuda.is_available():
                 return "cuda"
             if torch.backends.mps.is_available():

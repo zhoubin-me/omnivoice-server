@@ -1,6 +1,6 @@
 # OmniVoice Server - Critical Findings
 
-**Date**: 2026-04-04  
+**Date**: 2026-04-04
 **Status**: ⚠️ CRITICAL ISSUE FOUND
 
 ---
@@ -96,7 +96,7 @@ Title: MPS (Apple Silicon) produces broken audio - CPU works but slow
 - OmniVoice: k2-fsa/OmniVoice
 
 **Issue:**
-When running with `device="mps"`, all generated audio is unintelligible (sounds like "eh eh eh"). 
+When running with `device="mps"`, all generated audio is unintelligible (sounds like "eh eh eh").
 Switching to `device="cpu"` produces correct audio but is 3.8x slower (57s vs 15s per voice).
 
 **Tested:**

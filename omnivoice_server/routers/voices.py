@@ -3,6 +3,7 @@
 /v1/voices/profiles           — manage cloning profiles
 /v1/voices/profiles/{id}      — get/patch/delete specific profile
 """
+
 from __future__ import annotations
 
 import logging
@@ -33,6 +34,7 @@ def _get_profiles(request: Request) -> ProfileService:
 
 
 # ── GET /v1/voices ───────────────────────────────────────────────────────────
+
 
 @router.get("/voices")
 async def list_voices(
@@ -73,9 +75,10 @@ async def list_voices(
 
 # ── POST /v1/voices/profiles ─────────────────────────────────────────────────
 
+
 @router.post("/voices/profiles", status_code=status.HTTP_201_CREATED)
 async def create_profile(
-    request: Request,                    # FIX: was missing — needed for cfg access
+    request: Request,  # FIX: was missing — needed for cfg access
     profile_id: str = Form(
         ...,
         pattern=r"^[a-zA-Z0-9_-]{1,64}$",
@@ -92,7 +95,7 @@ async def create_profile(
     """
     from ..utils.audio import read_upload_bounded, validate_audio_bytes
 
-    cfg = request.app.state.cfg   # FIX: was NameError previously
+    cfg = request.app.state.cfg  # FIX: was NameError previously
 
     raw = await ref_audio.read()
     try:
@@ -122,6 +125,7 @@ async def create_profile(
 
 # ── GET /v1/voices/profiles/{profile_id} ─────────────────────────────────────
 
+
 @router.get("/voices/profiles/{profile_id}")
 async def get_profile(
     profile_id: str,
@@ -139,6 +143,7 @@ async def get_profile(
 
 # ── DELETE /v1/voices/profiles/{profile_id} ──────────────────────────────────
 
+
 @router.delete("/voices/profiles/{profile_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_profile(
     profile_id: str,
@@ -155,10 +160,11 @@ async def delete_profile(
 
 # ── PATCH /v1/voices/profiles/{profile_id} ───────────────────────────────────
 
+
 @router.patch("/voices/profiles/{profile_id}", status_code=status.HTTP_200_OK)
 async def update_profile(
     profile_id: str,
-    request: Request,                    # FIX: needed for cfg.max_ref_audio_bytes
+    request: Request,  # FIX: needed for cfg.max_ref_audio_bytes
     ref_audio: UploadFile | None = File(default=None),
     ref_text: str | None = Form(default=None),
     profile_svc: ProfileService = Depends(_get_profiles),
@@ -183,6 +189,7 @@ async def update_profile(
 
     if ref_audio is not None:
         from ..utils.audio import read_upload_bounded, validate_audio_bytes
+
         cfg = request.app.state.cfg
         raw = await ref_audio.read()
         try:

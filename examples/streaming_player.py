@@ -10,10 +10,9 @@ Usage:
     python streaming_player.py "Your text to synthesize"
 """
 import sys
+
 import httpx
 import pyaudio
-from typing import Optional
-
 
 BASE_URL = "http://127.0.0.1:8880"
 API_KEY = ""  # Set if server requires auth
@@ -29,7 +28,7 @@ def stream_and_play(
     text: str,
     voice: str = "auto",
     speed: float = 1.0,
-    api_key: Optional[str] = None,
+    api_key: str | None = None,
 ):
     """Stream audio from server and play in real-time."""
 
@@ -79,7 +78,7 @@ def stream_and_play(
                 bytes_received += len(chunk)
 
             duration_s = bytes_received / (SAMPLE_RATE * CHANNELS * SAMPLE_WIDTH)
-            print(f"\n✓ Playback complete")
+            print("\n✓ Playback complete")
             print(f"  Received: {bytes_received:,} bytes")
             print(f"  Duration: {duration_s:.2f}s")
 

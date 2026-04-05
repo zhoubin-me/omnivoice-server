@@ -6,23 +6,24 @@ Goal: Split text into chunks that:
   2. Don't exceed max_chars
   3. Don't split in the middle of numbers, abbreviations, URLs
 """
+
 from __future__ import annotations
 
 import re
 
 _SENTENCE_END = re.compile(
-    r'(?<=[.!?])\s+(?=[A-Z\u4e00-\u9fff\u3040-\u30ff'
-    r'\u00C0-\u024F'
-    r'\u1E00-\u1EFF'
-    r'])'
-    r'|(?<=[。！？])',
+    r"(?<=[.!?])\s+(?=[A-Z\u4e00-\u9fff\u3040-\u30ff"
+    r"\u00C0-\u024F"
+    r"\u1E00-\u1EFF"
+    r"])"
+    r"|(?<=[。！？])",
 )
 
 _FALSE_ENDS = re.compile(
-    r'\d+\.\d+'  # Decimals: 3.14
-    r'|v\d+\.\d+'  # Version numbers: v2.1.0
-    r'|[A-Z][a-z]{0,3}\.'  # Abbreviations: Dr., Inc.
-    r'|\w+\.\w{2,6}(?:/|\s|$)'  # URLs: example.com
+    r"\d+\.\d+"  # Decimals: 3.14
+    r"|v\d+\.\d+"  # Version numbers: v2.1.0
+    r"|[A-Z][a-z]{0,3}\."  # Abbreviations: Dr., Inc.
+    r"|\w+\.\w{2,6}(?:/|\s|$)"  # URLs: example.com
 )
 
 

@@ -1,6 +1,6 @@
 # MPS (Apple Silicon GPU) Issue - CRITICAL
 
-**Date**: 2026-04-04  
+**Date**: 2026-04-04
 **Status**: ⚠️ MPS NOT WORKING - Use CPU instead
 
 ---

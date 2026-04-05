@@ -103,7 +103,7 @@ graph TB
 | Apple Silicon (MPS) | 8 GB unified     | 16+ GB unified | ~0.1–0.3                       |
 | CPU (x86/ARM)       | 16 GB RAM        | 32 GB RAM      | ~1.5–4.0 (real-time or slower) |
 
-> **RTF < 1.0 means faster than real-time.** RTF = synthesis latency / audio duration.  
+> **RTF < 1.0 means faster than real-time.** RTF = synthesis latency / audio duration.
 > CPU inference is generally too slow for interactive use. Use for testing only.
 
 ---

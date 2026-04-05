@@ -7,6 +7,7 @@ DESIGN NOTE — upstream isolation:
   OmniVoiceAdapter._build_kwargs(). When OmniVoice adds / renames params,
   only that one method changes — not SynthesisRequest, not the router.
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -27,12 +28,12 @@ logger = logging.getLogger(__name__)
 @dataclass
 class SynthesisRequest:
     text: str
-    mode: str                            # "auto" | "design" | "clone"
-    instruct: str | None = None       # for mode="design"
-    ref_audio_path: str | None = None # tmp path, for mode="clone"
-    ref_text: str | None = None       # for mode="clone", optional
+    mode: str  # "auto" | "design" | "clone"
+    instruct: str | None = None  # for mode="design"
+    ref_audio_path: str | None = None  # tmp path, for mode="clone"
+    ref_text: str | None = None  # for mode="clone", optional
     speed: float = 1.0
-    num_step: int | None = None       # None → use server default
+    num_step: int | None = None  # None → use server default
     # Advanced passthrough — None means "use upstream default"
     guidance_scale: float | None = None
     denoise: bool | None = None
@@ -40,7 +41,7 @@ class SynthesisRequest:
 
 @dataclass
 class SynthesisResult:
-    tensors: list                        # list[torch.Tensor], each (1, T)
+    tensors: list  # list[torch.Tensor], each (1, T)
     duration_s: float
     latency_s: float
 
@@ -65,9 +66,7 @@ class OmniVoiceAdapter:
         """Return kwargs dict ready to pass to model.generate()."""
         num_step = req.num_step or self._cfg.num_step
         guidance_scale = (
-            req.guidance_scale
-            if req.guidance_scale is not None
-            else self._cfg.guidance_scale
+            req.guidance_scale if req.guidance_scale is not None else self._cfg.guidance_scale
         )
         denoise = req.denoise if req.denoise is not None else self._cfg.denoise
 
@@ -161,7 +160,7 @@ class InferenceService:
 
         logger.debug(
             f"Synthesized {duration_s:.2f}s audio in {latency_s:.2f}s "
-            f"(RTF={latency_s/duration_s:.3f})"
+            f"(RTF={latency_s / duration_s:.3f})"
         )
         return SynthesisResult(
             tensors=tensors,

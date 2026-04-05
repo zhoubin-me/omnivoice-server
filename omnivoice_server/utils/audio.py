@@ -2,6 +2,7 @@
 Audio encoding helpers.
 All functions are pure (no side effects) and synchronous.
 """
+
 from __future__ import annotations
 
 # FIX: io and torchaudio were imported a second time in the middle of the file,
@@ -63,9 +64,7 @@ def read_upload_bounded(data: bytes, max_bytes: int, field_name: str = "ref_audi
     if len(data) > max_bytes:
         mb = len(data) / 1024 / 1024
         limit_mb = max_bytes / 1024 / 1024
-        raise ValueError(
-            f"{field_name} too large: {mb:.1f} MB (limit: {limit_mb:.0f} MB)"
-        )
+        raise ValueError(f"{field_name} too large: {mb:.1f} MB (limit: {limit_mb:.0f} MB)")
     return data
 
 
@@ -80,9 +79,7 @@ def validate_audio_bytes(data: bytes, field_name: str = "ref_audio") -> None:
         if info.num_frames == 0:
             raise ValueError(f"{field_name}: audio file has 0 frames")
         if info.sample_rate < 8000:
-            raise ValueError(
-                f"{field_name}: sample rate {info.sample_rate}Hz too low (min 8000Hz)"
-            )
+            raise ValueError(f"{field_name}: sample rate {info.sample_rate}Hz too low (min 8000Hz)")
     except Exception as e:
         if isinstance(e, ValueError):
             raise

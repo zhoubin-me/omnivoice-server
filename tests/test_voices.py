@@ -1,6 +1,7 @@
 """
 Tests for voice profile management endpoints.
 """
+
 from __future__ import annotations
 
 import io
@@ -72,8 +73,11 @@ def test_speech_with_saved_profile(client, sample_audio_bytes):
         data={"profile_id": "myvoice"},
         files={"ref_audio": ("ref.wav", io.BytesIO(sample_audio_bytes), "audio/wav")},
     )
-    resp = client.post("/v1/audio/speech", json={
-        "input": "Hello with cloned voice",
-        "voice": "clone:myvoice",
-    })
+    resp = client.post(
+        "/v1/audio/speech",
+        json={
+            "input": "Hello with cloned voice",
+            "voice": "clone:myvoice",
+        },
+    )
     assert resp.status_code == 200

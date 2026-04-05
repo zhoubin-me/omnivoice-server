@@ -1,8 +1,8 @@
 # omnivoice-server — System Specification
 
-> **Version**: 2026-04-04  
-> **Status**: Pre-implementation  
-> **Repo**: `github.com/<you>/omnivoice-server` (separate repo, Apache 2.0)  
+> **Version**: 2026-04-04
+> **Status**: Pre-implementation
+> **Repo**: `github.com/<you>/omnivoice-server` (separate repo, Apache 2.0)
 > **Purpose**: Tài liệu đủ chi tiết để implement không cần hỏi thêm
 
 ---
@@ -2640,8 +2640,8 @@ Step 15: benchmarks/run_benchmark.py
 Step 16: Polish README + examples/
 ```
 
-**Checkpoint after Step 11:** `omnivoice-server --help` phải chạy không lỗi.  
-**Checkpoint after Step 13:** All unit tests pass (với mock model).  
+**Checkpoint after Step 11:** `omnivoice-server --help` phải chạy không lỗi.
+**Checkpoint after Step 13:** All unit tests pass (với mock model).
 **Checkpoint after Step 14:** Real synthesis works on MPS.
 
 ---

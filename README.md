@@ -10,13 +10,13 @@ OpenAI-compatible HTTP server for [OmniVoice](https://github.com/k2-fsa/OmniVoic
 **Author:** zamery ([@maemreyo](https://github.com/maemreyo)) | **Email:** matthew.ngo1114@gmail.com
 
 > **⚠️ Early Development Notice**
-> 
+>
 > This is a new repository built on top of OmniVoice (released 2026). Both the upstream model and this server wrapper are under active development. Expect:
 > - API changes and breaking updates
 > - Performance improvements as PyTorch MPS support matures
 > - New features and bug fixes
 > - Documentation updates
-> 
+>
 > **Current Status**: Functional on CPU and CUDA. MPS (Apple Silicon) has known issues. See [Verification Status](#️-verification-status) below.
 
 ## Features
@@ -89,7 +89,7 @@ The server will start at `http://127.0.0.1:8880` by default.
 
 ## ⚠️ Verification Status
 
-**Last Updated**: 2026-04-04  
+**Last Updated**: 2026-04-04
 **Status**: ✅ Working (CPU only)
 
 ### Quick Summary
@@ -522,7 +522,7 @@ GitHub Actions workflow runs on every push:
 
 - **CPU**: 4+ cores recommended
 - **RAM**: 8GB minimum, 16GB recommended
-- **GPU**: 
+- **GPU**:
   - ✅ **NVIDIA GPU with CUDA** - Recommended for production (20-25x faster than CPU)
   - ❌ **Apple Silicon (MPS)** - Currently broken due to PyTorch bugs, do not use
   - ✅ **CPU** - Works but slow (5x slower than real-time)

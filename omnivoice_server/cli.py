@@ -1,4 +1,5 @@
 """CLI entrypoint for omnivoice-server."""
+
 from __future__ import annotations
 
 import argparse
@@ -13,12 +14,8 @@ def main() -> None:
     )
 
     # Server
-    parser.add_argument(
-        "--host", default=None, help="Bind host (env: OMNIVOICE_HOST)"
-    )
-    parser.add_argument(
-        "--port", type=int, default=None, help="Port (env: OMNIVOICE_PORT)"
-    )
+    parser.add_argument("--host", default=None, help="Bind host (env: OMNIVOICE_HOST)")
+    parser.add_argument("--port", type=int, default=None, help="Port (env: OMNIVOICE_PORT)")
     parser.add_argument(
         "--log-level",
         default=None,
@@ -85,6 +82,7 @@ def main() -> None:
     overrides = {k: v for k, v in vars(args).items() if v is not None}
 
     from .config import Settings
+
     cfg = Settings(**overrides)
 
     # Configure logging

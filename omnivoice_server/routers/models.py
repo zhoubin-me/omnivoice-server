@@ -8,6 +8,7 @@ before the first synthesis request.
 
 This is a minimal, read-only stub — no inference happens here.
 """
+
 from __future__ import annotations
 
 import time
@@ -67,6 +68,7 @@ async def get_model(model_id: str, request: Request):
     valid = {"omnivoice", "tts-1", "tts-1-hd"}
     if model_id not in valid:
         from fastapi import HTTPException, status
+
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Model '{model_id}' not found. Available: {sorted(valid)}",

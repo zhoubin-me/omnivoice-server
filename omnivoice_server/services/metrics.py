@@ -1,6 +1,7 @@
 """
 In-memory request metrics. Thread-safe with a lock.
 """
+
 from __future__ import annotations
 
 import threading

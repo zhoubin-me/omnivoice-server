@@ -1,6 +1,7 @@
 """
 Tests for one-shot voice cloning endpoint.
 """
+
 from __future__ import annotations
 
 import io

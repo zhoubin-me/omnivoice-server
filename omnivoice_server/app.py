@@ -2,6 +2,7 @@
 FastAPI application factory.
 All shared state lives on app.state — no module-level globals.
 """
+
 from __future__ import annotations
 
 import logging
@@ -30,8 +31,7 @@ async def lifespan(app: FastAPI):
     t0 = time.monotonic()
     logger.info("omnivoice-server starting up...")
     logger.info(
-        f"  device={cfg.device}  num_step={cfg.num_step}  "
-        f"max_concurrent={cfg.max_concurrent}"
+        f"  device={cfg.device}  num_step={cfg.num_step}  max_concurrent={cfg.max_concurrent}"
     )
 
     cfg.profile_dir.mkdir(parents=True, exist_ok=True)
@@ -55,10 +55,7 @@ async def lifespan(app: FastAPI):
     app.state.start_time = time.monotonic()
 
     elapsed = time.monotonic() - t0
-    logger.info(
-        f"Startup complete in {elapsed:.1f}s. "
-        f"Listening on http://{cfg.host}:{cfg.port}"
-    )
+    logger.info(f"Startup complete in {elapsed:.1f}s. Listening on http://{cfg.host}:{cfg.port}")
 
     yield
 
@@ -82,6 +79,7 @@ def create_app(cfg: Settings) -> FastAPI:
 
     # ── Auth middleware ───────────────────────────────────────────────────────
     if cfg.api_key:
+
         @app.middleware("http")
         async def auth_middleware(request: Request, call_next):
             # Skip auth for health, metrics, and model listing
@@ -99,7 +97,7 @@ def create_app(cfg: Settings) -> FastAPI:
     # ── Routers ───────────────────────────────────────────────────────────────
     app.include_router(speech.router, prefix="/v1")
     app.include_router(voices.router, prefix="/v1")
-    app.include_router(models.router, prefix="/v1")   # FIX: was missing
+    app.include_router(models.router, prefix="/v1")  # FIX: was missing
     app.include_router(health.router)
 
     return app

@@ -7,10 +7,10 @@ Demonstrates:
 - Voice cloning with profiles
 - Streaming audio
 """
-import httpx
 import asyncio
 from pathlib import Path
 
+import httpx
 
 BASE_URL = "http://127.0.0.1:8880"
 API_KEY = ""  # Set if server requires auth
@@ -239,7 +239,7 @@ def manage_profiles():
             timeout=10.0,
         )
         if response.status_code == 200:
-            print(f"✓ Profile updated")
+            print("✓ Profile updated")
 
         # Delete profile (commented out for safety)
         # response = httpx.delete(

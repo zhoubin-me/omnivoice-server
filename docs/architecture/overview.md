@@ -1,8 +1,8 @@
 # omnivoice-server — Architecture Document
 
-> **Version**: 2026-04-04  
-> **Status**: Pre-implementation  
-> **Audience**: Developers implementing or onboarding to this project  
+> **Version**: 2026-04-04
+> **Status**: Pre-implementation
+> **Audience**: Developers implementing or onboarding to this project
 
 ---
 

@@ -1,6 +1,7 @@
 """
 Tests for health and metrics endpoints.
 """
+
 from __future__ import annotations
 
 

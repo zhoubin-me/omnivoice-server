@@ -2,6 +2,7 @@
 Loads and holds the OmniVoice model singleton.
 Model is loaded once at startup; never reloaded during runtime.
 """
+
 from __future__ import annotations
 
 import asyncio

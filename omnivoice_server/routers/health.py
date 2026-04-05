@@ -1,4 +1,5 @@
 """Health and metrics endpoints."""
+
 from __future__ import annotations
 
 import time
@@ -31,7 +32,5 @@ async def metrics(request: Request):
     """Request metrics and current memory usage."""
     metrics_svc = request.app.state.metrics_svc
     snapshot = metrics_svc.snapshot()
-    snapshot["ram_mb"] = round(
-        psutil.Process().memory_info().rss / 1024 / 1024, 1
-    )
+    snapshot["ram_mb"] = round(psutil.Process().memory_info().rss / 1024 / 1024, 1)
     return snapshot

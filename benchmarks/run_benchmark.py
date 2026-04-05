@@ -23,8 +23,6 @@ import statistics
 import time
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Optional
-
 
 # ── Test cases ────────────────────────────────────────────────────────────────
 
@@ -71,7 +69,7 @@ class RunResult:
     ram_before_mb: float
     ram_after_mb: float
     ram_delta_mb: float
-    error: Optional[str] = None
+    error: str | None = None
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────

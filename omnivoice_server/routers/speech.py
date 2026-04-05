@@ -2,6 +2,7 @@
 /v1/audio/speech        - OpenAI-compatible TTS (auto, design, clone via profile)
 /v1/audio/speech/clone  - One-shot voice cloning (multipart upload)
 """
+
 from __future__ import annotations
 
 import asyncio
@@ -27,6 +28,7 @@ router = APIRouter()
 
 class SpeechRequest(BaseModel):
     """OpenAI TTS API compatible request body."""
+
     model: str = Field(default="omnivoice")
     input: str = Field(..., min_length=1, max_length=10_000)
     voice: str = Field(default="auto")
@@ -70,7 +72,7 @@ def _parse_voice(
         return "auto", None, None, None
 
     if v.startswith("design:"):
-        instruct = v[len("design:"):].strip()
+        instruct = v[len("design:") :].strip()
         if not instruct:
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -79,7 +81,7 @@ def _parse_voice(
         return "design", instruct, None, None
 
     if v.startswith("clone:"):
-        profile_id = v[len("clone:"):].strip()
+        profile_id = v[len("clone:") :].strip()
         if not profile_id:
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -150,6 +152,7 @@ async def create_speech(
 
     if body.response_format == "pcm":
         from ..utils.audio import tensor_to_pcm16_bytes
+
         audio_bytes = b"".join(tensor_to_pcm16_bytes(t) for t in result.tensors)
         media_type = "audio/pcm"
     else:
