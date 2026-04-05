@@ -32,3 +32,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.log
+
+# Voice samples (stored in GitHub Releases)
+voice_samples/*.wav

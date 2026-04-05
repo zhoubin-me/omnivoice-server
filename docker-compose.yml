@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  omnivoice-server:
+    build: .
+    ports:
+      - "8880:8880"
+    volumes:
+      # Persist voice profiles
+      - ./profiles:/app/profiles
+    environment:
+      # Server configuration
+      - OMNIVOICE_HOST=0.0.0.0
+      - OMNIVOICE_PORT=8880
+      - OMNIVOICE_DEVICE=cpu
+      - OMNIVOICE_NUM_STEP=32
+      - OMNIVOICE_MAX_CONCURRENT=2
+
+      # Optional: Enable authentication
+      # - OMNIVOICE_API_KEY=your-secret-key
+
+      # Optional: Adjust inference quality
+      # - OMNIVOICE_GUIDANCE_SCALE=2.0
+      # - OMNIVOICE_DENOISE=true
+
+      # Optional: Logging
+      # - OMNIVOICE_LOG_LEVEL=info
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8880/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+# For CUDA GPU support, use this configuration instead:
+# services:
+#   omnivoice-server:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile.cuda  # You'll need to create this
+#     runtime: nvidia
+#     environment:
+#       - OMNIVOICE_DEVICE=cuda
+#     # ... rest of config same as above

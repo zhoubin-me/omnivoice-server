@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![CI](https://github.com/maemreyo/omnivoice-server/actions/workflows/ci.yml/badge.svg)](https://github.com/maemreyo/omnivoice-server/actions/workflows/ci.yml)
+[![PyPI version](https://badge.fury.io/py/omnivoice-server.svg)](https://pypi.org/project/omnivoice-server/)
 
 OpenAI-compatible HTTP server for [OmniVoice](https://github.com/k2-fsa/OmniVoice) text-to-speech.
 
@@ -54,16 +56,19 @@ For other CUDA versions or more options, see the [official PyTorch installation 
 ### Installation
 
 ```bash
-# Install from GitHub (recommended for now)
+# Option 1: Install from PyPI (recommended)
+pip install omnivoice-server
+
+# Option 2: Install with uv (faster)
+uv tool install omnivoice-server
+
+# Option 3: Install from GitHub (latest development version)
 pip install git+https://github.com/maemreyo/omnivoice-server.git
 
-# Or clone and install locally
+# Option 4: Clone and install locally for development
 git clone https://github.com/maemreyo/omnivoice-server.git
 cd omnivoice-server
 pip install -e .
-
-# PyPI package coming soon
-# pip install omnivoice-server
 ```
 
 ### Start the Server
@@ -116,14 +121,12 @@ The server will start at `http://127.0.0.1:8880` by default.
 Listen to verified voice samples:
 
 **English (Female, American accent)** - 199KB
-<audio controls src="./voice_samples/test_english.wav"></audio>
 
-[Download English sample](./voice_samples/test_english.wav)
+[Download English sample](https://github.com/maemreyo/omnivoice-server/releases/download/v0.1.0/test_english.wav)
 
 **Vietnamese (Female)** - 203KB
-<audio controls src="./voice_samples/test_vietnamese.wav"></audio>
 
-[Download Vietnamese sample](./voice_samples/test_vietnamese.wav)
+[Download Vietnamese sample](https://github.com/maemreyo/omnivoice-server/releases/download/v0.1.0/test_vietnamese.wav)
 
 Both samples demonstrate clear, natural speech quality on CPU device.
 
@@ -318,7 +321,7 @@ Generate speech from text (OpenAI-compatible).
   "response_format": "wav",
   "speed": 1.0,
   "stream": false,
-  "num_step": 16
+  "num_step": 32
 }
 ```
 
@@ -420,6 +423,53 @@ python streaming_player.py "Hello, this is streaming audio!"
 chmod +x curl_examples.sh
 ./curl_examples.sh
 ```
+
+## Docker Deployment
+
+### Quick Start with Docker Compose
+
+```bash
+# Start the server
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the server
+docker-compose down
+```
+
+The server will be available at `http://localhost:8880`. Voice profiles are persisted in the `./profiles` directory.
+
+### Build and Run Manually
+
+```bash
+# Build the image
+docker build -t omnivoice-server .
+
+# Run the container
+docker run -d \
+  -p 8880:8880 \
+  -v $(pwd)/profiles:/app/profiles \
+  -e OMNIVOICE_API_KEY=your-secret-key \
+  --name omnivoice \
+  omnivoice-server
+
+# View logs
+docker logs -f omnivoice
+```
+
+### Configuration
+
+Set environment variables in `docker-compose.yml` or pass them with `-e`:
+
+- `OMNIVOICE_HOST=0.0.0.0` - Bind host (must be 0.0.0.0 in Docker)
+- `OMNIVOICE_PORT=8880` - Server port
+- `OMNIVOICE_DEVICE=cpu` - Device (cpu, cuda)
+- `OMNIVOICE_NUM_STEP=32` - Inference steps
+- `OMNIVOICE_API_KEY=secret` - Optional authentication
+
+For CUDA GPU support, see comments in `docker-compose.yml`.
 
 ## Development
 
@@ -553,7 +603,7 @@ Comprehensive technical documentation is available in the `docs/` directory:
 
 ## License
 
-Apache-2.0
+MIT
 
 ## Contributing
 
